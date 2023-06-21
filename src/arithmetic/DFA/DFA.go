@@ -1,4 +1,4 @@
-package arithmetic
+package DFA
 
 type SearchTree struct {
 	isEnd    bool
