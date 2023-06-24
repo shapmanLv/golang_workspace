@@ -23,7 +23,7 @@ func (s *SearchTree) newTreeChildNode(key rune) *SearchTree {
 func BuildSearchTree(words []string) *SearchTree {
 	head := &SearchTree{
 		isEnd:    false,
-		children: make(map[rune]*SearchTree, len(words)),
+		children: make(map[rune]*SearchTree, len(words)), // 手动设置切片容量，避免频繁扩容
 	}
 	for _, word := range words { // 遍历每一个词
 		parentNode := head
