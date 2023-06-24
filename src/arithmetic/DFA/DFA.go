@@ -1,32 +1,36 @@
 package DFA
 
+// SearchTree 多叉树结构体
 type SearchTree struct {
 	isEnd    bool
-	children map[rune]SearchTree
+	children map[rune]*SearchTree
 }
 
 // 创建个子节点
 func (s *SearchTree) newTreeChildNode(key rune) *SearchTree {
-	node := SearchTree{
+	if node, exist := s.children[key]; exist { // 已经存在该节点的情况下
+		return node
+	}
+	node := &SearchTree{ // 不存在该节点的情况
 		isEnd:    false,
-		children: make(map[rune]SearchTree, 3),
+		children: make(map[rune]*SearchTree, 3),
 	}
 	s.children[key] = node
-	return &node
+	return node
 }
 
 // BuildSearchTree 创建多叉搜索树
 func BuildSearchTree(words []string) *SearchTree {
 	head := &SearchTree{
 		isEnd:    false,
-		children: make(map[rune]SearchTree, len(words)),
+		children: make(map[rune]*SearchTree, len(words)),
 	}
 	for _, word := range words { // 遍历每一个词
 		parentNode := head
-		for _, char := range word { // 遍历每一个词的每一个字
+		for _, char := range word {
 			parentNode = parentNode.newTreeChildNode(char) // 逐字向父节点添加子节点
 		}
-		parentNode.isEnd = true // 最后一个字标记一下，设置成true
+		parentNode.isEnd = true // 词的最后一个字 isEnd 状态要设置成true
 	}
 	return head
 }
