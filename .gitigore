@@ -73,3 +73,5 @@ __debug_bin
 ######################
 .sass-cache/*
 node_modules/
+# gom存储的包文件 #
+pkg/mod
